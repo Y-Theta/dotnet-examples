@@ -17,6 +17,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\expressionabout\expressionabout.csproj" />
+	  <ProjectReference Include="..\fileformat\fileformat.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Using Include="NUnit.Framework" />
 	</ItemGroup>
 
