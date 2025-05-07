@@ -1,8 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<Import Project="../common.props" Condition="Exists('../common.props')" />
 
-	<ItemGroup>
-		<Folder Include="Common\" />
-	</ItemGroup>
-
 </Project>
