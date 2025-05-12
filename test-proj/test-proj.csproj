@@ -3,7 +3,6 @@
 
 	<PropertyGroup>
 		<RootNamespace>test_proj</RootNamespace>
-
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 	</PropertyGroup>
