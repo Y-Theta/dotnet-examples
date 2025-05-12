@@ -14,7 +14,7 @@ namespace test_proj
         [SetUp]
         public void Setup()
         {
-
+            PropQuickAccess.Init();
         }
 
         public delegate T Function<T>(string input);
@@ -22,24 +22,40 @@ namespace test_proj
         [Test]
         public void TestPropQuickAccess()
         {
-            PropQuickAccess.Init();
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            PropQuickAccess.GetByReflection();
-            sw.Stop();
-            Assert.Warn($" Reflection {sw.ElapsedMilliseconds}");
-            sw.Restart();
-            PropQuickAccess.GetByExpression();
-            sw.Stop();
-            Assert.Warn($" Expression {sw.ElapsedMilliseconds}");
-            sw.Restart();
-            PropQuickAccess.GetByReflection();
-            sw.Stop();
-            Assert.Warn($" Reflection Assign {sw.ElapsedMilliseconds}");
-            sw.Restart();
-            PropQuickAccess.GetByExpression();
-            sw.Stop();
-            Assert.Warn($" Expression Assign {sw.ElapsedMilliseconds}");
+            List<Task> tasks = new List<Task>();
+            tasks.Add(Task.Run(() =>
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                PropQuickAccess.GetByReflection();
+                sw.Stop();
+                Assert.Warn($" Reflection {sw.ElapsedMilliseconds}");
+            }));
+            tasks.Add(Task.Run(() =>
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                PropQuickAccess.GetByExpression();
+                sw.Stop();
+                Assert.Warn($" Expression {sw.ElapsedMilliseconds}");
+            }));
+            tasks.Add(Task.Run(() =>
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                PropQuickAccess.GetByReflection();
+                sw.Stop();
+                Assert.Warn($" Reflection Assign {sw.ElapsedMilliseconds}");
+            }));
+            tasks.Add(Task.Run(() =>
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                PropQuickAccess.GetByExpression();
+                sw.Stop();
+                Assert.Warn($" Expression Assign {sw.ElapsedMilliseconds}");
+            }));
+            Task.WaitAll(tasks.ToArray());
         }
 
         [Test]

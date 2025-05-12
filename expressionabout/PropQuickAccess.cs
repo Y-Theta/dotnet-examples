@@ -52,6 +52,7 @@ namespace expressionabout
             _readableinfos.AddRange(GetReadableProp<TestModel>());
             _writableinfos.AddRange(GetWritableProp<TestModel>());
             BuildQuickAccess();
+            BuildQuickAssign();
             _model = TestModel.NewRandom();
         }
 
@@ -77,7 +78,8 @@ namespace expressionabout
 
             foreach (var item in _writableinfos)
             {
-                var getprop = Expression.Call(input, item.SetMethod, input1);
+                var conv = Expression.Convert(input1, item.PropertyType);
+                var getprop = Expression.Call(input, item.SetMethod, conv);
                 var func = Expression.Lambda<Action<TestModel, object>>(getprop, input, input1).Compile();
                 _assignableRef[item.Name] = (func, item.PropertyType.IsValueType ? (object)0 : (object)null);
             }
