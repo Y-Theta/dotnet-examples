@@ -24,7 +24,7 @@ namespace test_proj
             string input = "ret";
             int test = 1;
 
-            var func = ScriptRunner.GenerateExpression<Func<int, int, int>>(" (int)Param[\"x1\"] * (int)Param[\"x2\"] ");
+            var func = ScriptRunner.GenerateExpression<Func<int, int, int>>(" (int)Math.Pow((int){0}, (int){1}) ");
             var result = func?.Invoke(2, 2);
 
             Assert.AreEqual(result, test);

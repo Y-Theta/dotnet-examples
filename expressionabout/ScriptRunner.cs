@@ -53,7 +53,7 @@ namespace expressionabout
                 typeofglobal = typeof(Input);
                 var newins = Expression.Constant(new Input());
                 var dic = Expression.Property(newins, nameof(Input.Param));
-                var addmethod = typeof(Dictionary<string, object>).GetMethod(nameof(Dictionary<string,object>.Add));
+                var addmethod = typeof(Dictionary<string, object>).GetMethod(nameof(Dictionary<string, object>.Add));
                 List<Expression> assigns = new List<Expression>();
                 foreach (var arg in inputparameters)
                 {
@@ -76,8 +76,10 @@ namespace expressionabout
                 callParameters.Add(Expression.Constant(null));
             }
 
+            var convertedExp = ConvertParameter(expression, parameters.Count);
             callParameters.Add(Expression.Constant(default(CancellationToken)));
-            Script<object> script = CSharpScript.Create(expression,
+            Script<object> script = CSharpScript.Create(convertedExp,
+                options: ScriptOptions.Default.WithImports("System"),
                 globalsType: typeofglobal);
             script.Compile();   //<-- load the Compilation from database/file here
             var comp = script.GetCompilation();
@@ -98,6 +100,20 @@ namespace expressionabout
             var lambda = Expression.Lambda(typedResult, parameters.ToArray());
 
             return lambda.Compile() as T;
+        }
+
+        private static string ConvertParameter(string expression, int paramCount)
+        {
+            if (string.IsNullOrEmpty(expression))
+                return expression;
+
+            List<string> parameters = new List<string>();
+            for (int i = 0; i < paramCount; i++)
+            {
+                parameters.Add($"Param[\"x{i + 1}\"]");
+            }
+
+            return string.Format(expression, parameters.ToArray());
         }
 
         //private static Type GenerateClass(IEnumerable<ParameterInfo> proptypes)
