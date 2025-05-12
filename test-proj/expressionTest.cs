@@ -22,11 +22,12 @@ namespace test_proj
         public void TestScriptRunner()
         {
             string input = "ret";
+            int test = 1;
 
-            var func = ScriptRunner.GenerateExpression<Func<string, string>>(" $\"{x1}\" ");
-            var result = func?.Invoke(input+"2");
+            var func = ScriptRunner.GenerateExpression<Func<int, int, int>>(" (int)Param[\"x1\"] * (int)Param[\"x2\"] ");
+            var result = func?.Invoke(2, 2);
 
-            Assert.AreEqual(input, result);
+            Assert.AreEqual(result, test);
         }
 
     }

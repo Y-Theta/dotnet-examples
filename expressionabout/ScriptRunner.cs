@@ -1,9 +1,13 @@
 ﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Scripting;
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,7 +23,7 @@ namespace expressionabout
     {
         public class Input
         {
-            public string x { get; set; }
+            public Dictionary<string, object> Param { get; } = new Dictionary<string, object>();
         }
 
         public static T GenerateExpression<T>(string expression) where T : MulticastDelegate
@@ -36,6 +40,7 @@ namespace expressionabout
             {
                 throw new ArgumentException("generic type error, generic delegate must has return value");
             }
+
             Type returntype = invoke.ReturnType;
 
             var inputparameters = invoke.GetParameters();
@@ -45,18 +50,21 @@ namespace expressionabout
             if (inputparameters != null)
             {
                 int index = 0;
-                typeofglobal = GenerateClass(inputparameters);
-                var newins = Expression.Constant(Activator.CreateInstance(typeofglobal));
+                typeofglobal = typeof(Input);
+                var newins = Expression.Constant(new Input());
+                var dic = Expression.Property(newins, nameof(Input.Param));
+                var addmethod = typeof(Dictionary<string, object>).GetMethod(nameof(Dictionary<string,object>.Add));
                 List<Expression> assigns = new List<Expression>();
                 foreach (var arg in inputparameters)
                 {
                     index++;
                     var paramName = $"x{index}";
                     var paraminput = Expression.Parameter(arg.ParameterType, paramName);
-                    var prop = Expression.Property(newins, paramName);
-                    var signed = Expression.Assign(prop, paraminput);
+                    var converted = Expression.Convert(paraminput, typeof(object));
+                    var signed = Expression.Call(dic, addmethod, new Expression[] { Expression.Constant(paramName), converted });
+                    //var prop = Expression.Property(newins, paramName);
+                    //var signed = Expression.Assign(prop, paraminput);
                     assigns.Add(paraminput);
-                    assigns.Add(prop);
                     assigns.Add(signed);
                     parameters.Add(paraminput);
                 }
@@ -69,10 +77,14 @@ namespace expressionabout
             }
 
             callParameters.Add(Expression.Constant(default(CancellationToken)));
-            Script<object> script = CSharpScript.Create(expression, 
-                ScriptOptions.Default.AddReferences(_expressiondynamicassembly), 
+            Script<object> script = CSharpScript.Create(expression,
                 globalsType: typeofglobal);
             script.Compile();   //<-- load the Compilation from database/file here
+            var comp = script.GetCompilation();
+            SyntaxTree syntaxTree = comp.SyntaxTrees.Single();
+            SyntaxNode syntaxTreeRoot = syntaxTree.GetRoot();
+            SemanticModel semanticModel = comp.GetSemanticModel(syntaxTree);
+            var symbol = semanticModel.GetDeclaredSymbol(syntaxTreeRoot);
             var scriptExp = Expression.Constant(script);
             var methods = typeof(Script<object>)
                     .GetMethods(BindingFlags.Instance | BindingFlags.Public)
@@ -88,32 +100,19 @@ namespace expressionabout
             return lambda.Compile() as T;
         }
 
-        private static AssemblyBuilder _expressiondynamicassembly = null;
-        private static ModuleBuilder _expressiondynamicmodule = null;
-        private static ModuleBuilder GetModuleBuilder()
-        {
-            if (_expressiondynamicmodule is null)
-            {
-                AssemblyName assemblyName = new AssemblyName("ExpressionAssembly");
-                _expressiondynamicassembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-                _expressiondynamicmodule = _expressiondynamicassembly.DefineDynamicModule("ExpressionModel");
-            }
-            return _expressiondynamicmodule;
-        }
+        //private static Type GenerateClass(IEnumerable<ParameterInfo> proptypes)
+        //{
+        //    var builder = GetModuleBuilder();
+        //    TypeBuilder typeBuilder = builder.DefineType(Guid.NewGuid().ToString("N"), TypeAttributes.Public);
+        //    int index = 0;
+        //    foreach (var prop in proptypes)
+        //    {
+        //        index++;
+        //        AddProperty(typeBuilder, $"x{index}", prop.ParameterType);
+        //    }
 
-        private static Type GenerateClass(IEnumerable<ParameterInfo> proptypes)
-        {
-            var builder = GetModuleBuilder();
-            TypeBuilder typeBuilder = builder.DefineType(Guid.NewGuid().ToString("N"), TypeAttributes.Public);
-            int index = 0;
-            foreach (var prop in proptypes)
-            {
-                index++;
-                AddProperty(typeBuilder, $"x{index}", prop.ParameterType);
-            }
-
-            return typeBuilder.CreateType();
-        }
+        //    return typeBuilder.CreateType();
+        //}
 
         private static void AddProperty(TypeBuilder typeBuilder, string propertyName, Type propertyType)
         {
