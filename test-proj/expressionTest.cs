@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace test_proj
 {
@@ -19,6 +20,16 @@ namespace test_proj
 
         public delegate T Function<T>(string input);
 
+        [Test]
+        public void TestWin()
+        {
+            //Application.Run(new Form());
+            Assert.Pass();
+        }
+
+        /// <summary>
+        /// Reflection 在.net8中被优化过 差距不是很大
+        /// </summary>
         [Test]
         public void TestPropQuickAccess()
         {
@@ -56,6 +67,7 @@ namespace test_proj
                 Assert.Warn($" Expression Assign {sw.ElapsedMilliseconds}");
             }));
             Task.WaitAll(tasks.ToArray());
+            Task.Delay(200).Wait();
         }
 
         [Test]

@@ -5,6 +5,10 @@
 		<RootNamespace>test_proj</RootNamespace>
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
+		<TargetFramework>net8.0-windows</TargetFramework>
+
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWpf>true</UseWpf>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,6 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\database-test\database-test.csproj" />
 	  <ProjectReference Include="..\expressionabout\expressionabout.csproj" />
 	  <ProjectReference Include="..\fileformat\fileformat.csproj" />
 	</ItemGroup>

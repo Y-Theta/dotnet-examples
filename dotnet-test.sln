@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		common.props = common.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "database-test", "database-test\database-test.csproj", "{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{08405E9E-D522-4710-A206-06D661A0F8EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08405E9E-D522-4710-A206-06D661A0F8EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08405E9E-D522-4710-A206-06D661A0F8EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

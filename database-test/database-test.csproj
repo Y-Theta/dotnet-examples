@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="../common.props" Condition="Exists('../common.props')" />
+
+	<PropertyGroup>
+		<RootNamespace>database_test</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.4" />
+	  <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="2.1.11" />
+	  <PackageReference Include="SQLitePCLRaw.provider.e_sqlite3" Version="2.1.11" />
+	</ItemGroup>
+
+</Project>
