@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "database-test", "database-test\database-test.csproj", "{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "form-test", "form-test\form-test.csproj", "{A6B6B665-3563-496B-BF22-7A85E9AD4A96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC83C80F-AC5A-4FFC-8F69-9162B97CB2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6B6B665-3563-496B-BF22-7A85E9AD4A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B6B665-3563-496B-BF22-7A85E9AD4A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B6B665-3563-496B-BF22-7A85E9AD4A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B6B665-3563-496B-BF22-7A85E9AD4A96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
