@@ -13,6 +13,9 @@
         <SolidColorBrush x:Key="FocusMask"
                          Color="#cc7a22"
                          Opacity=".1" />
+        <SolidColorBrush x:Key="FocusMask_Border"
+                         Color="#cc7a22"
+                         Opacity=".5" />
         <Style x:Key="NoBorderBox"
                TargetType="TextBox">
             <Setter Property="BorderThickness"
@@ -34,7 +37,8 @@
         <Grid Height="24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
@@ -44,10 +48,14 @@
             <TextBox Name="DNSKEY"
                      Grid.Column="2"
                      Style="{StaticResource NoBorderBox}" />
-            <Button Grid.Column="3"
+            <TextBox Name="DNSDOMAIN"
+                     Grid.Column="3"
+                     Text="y-theta.cn"
+                     Style="{StaticResource NoBorderBox}" />
+            <Button Grid.Column="5"
                     Width="48"
                     Margin="0,0,8,0"
-                    Click="Button_Click">刷新</Button>
+                    Click="Button_Click">刷 新</Button>
         </Grid>
         <Grid Grid.Row="1"
               Height="24">
@@ -59,6 +67,8 @@
                       HorizontalAlignment="Stretch"
                       HorizontalContentAlignment="Stretch"
                       VirtualizingPanel.ScrollUnit="Item"
+                      VirtualizingPanel.VirtualizationMode="Recycling"
+                      SnapsToDevicePixels="True"
                       BorderThickness="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -79,6 +89,12 @@
                                             <Setter TargetName="PART_MASK"
                                                     Property="Fill"
                                                     Value="{StaticResource FocusMask}" />
+                                            <Setter TargetName="PART_ROOT"
+                                                    Property="BorderBrush"
+                                                    Value="{StaticResource FocusMask_Border}" />
+                                            <Setter TargetName="PART_ROOT"
+                                                    Property="BorderThickness"
+                                                    Value="1" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -88,11 +104,12 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="tencent:RecordListItem">
-                        <Grid HorizontalAlignment="Stretch">
+                        <Grid HorizontalAlignment="Stretch"
+                              KeyDown="Grid_PreviewKeyDown">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition MinWidth="64"
                                                   MaxWidth="128" />
-                                <ColumnDefinition Width="144" />
+                                <ColumnDefinition Width="64" />
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="auto" />
@@ -100,18 +117,36 @@
                             <TextBlock Text="{Binding Name}"
                                        Padding="2"
                                        FontSize="14" />
-                            <TextBox Grid.Column="1"
+                            <Border Grid.Column="1"
+                                    CornerRadius="8"
+                                    Height="16"
+                                    MinWidth="16"
+                                    MaxWidth="96"
+                                    HorizontalAlignment="Left"
+                                    Background="{StaticResource FocusMask_Border}">
+                                <TextBlock FontSize="10"
+                                           Margin="6,1"
+                                           Padding="0,1"
+                                           HorizontalAlignment="Center"
+                                           Foreground="White"
+                                           Text="{Binding Type}" />
+                            </Border>
+                            <TextBox Grid.Column="2"
                                      Style="{StaticResource NoBorderBox}"
                                      BorderThickness="0"
                                      Background="{x:Null}"
-                                     Text="{Binding Value}" />
-                            <TextBlock Grid.Column="2"
-                                       Padding="2,4"
-                                       Text="{Binding Type}" />
+                                     Text="{Binding Value,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
                             <Button Grid.Column="4"
                                     Click="Button_Click_1"
-                                    Padding="8,2"
-                                    DataContext="{Binding}">提 交</Button>
+                                    Padding="8,0"
+                                    Height="20"
+                                    Content="提 交"
+                                    Foreground="White"
+                                    Background="{StaticResource FocusMask_Border}"
+                                    BorderThickness="0"
+                                    DataContext="{Binding}">
+                            </Button>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
