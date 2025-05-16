@@ -2,9 +2,15 @@
 	<Import Project="../common.props" Condition="Exists('../common.props')" />
 
 	<PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>form_test</RootNamespace>
-    <UseWindowsForms>true</UseWindowsForms>
-  </PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<RootNamespace>form_test</RootNamespace>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+		<OutputType>WinExe</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="TencentCloudSDK.Dnspod" Version="3.0.1239" />
+	</ItemGroup>
 
 </Project>
