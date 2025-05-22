@@ -11,7 +11,7 @@ namespace database_test
     [Table("db_obj_1")]
     public class DbObj1
     {
-        [Column]
+        [Column("col1_number")]
         public int Number1 { get; set; }
         public double Number2 { get; set; }
         public decimal Number3 { get; set; }

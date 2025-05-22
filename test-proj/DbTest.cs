@@ -20,7 +20,7 @@ namespace test_proj
         [Test]
         public void TestDb()
         {
-            Program.Test1();
+            Program.TestCollection();
         }
 
     }

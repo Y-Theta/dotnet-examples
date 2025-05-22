@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 using System;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 
 namespace database_test
@@ -12,8 +14,6 @@ namespace database_test
         {
             public DbSet<DbObj1> Obj1s { get; set; }
 
-            public string DbPath { get; }
-
             public ContextTest()
             {
                 
@@ -21,7 +21,10 @@ namespace database_test
 
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                optionsBuilder.UseSqlite($"Data Source=context.db");
+                SqliteConnectionStringBuilder builder = new SqliteConnectionStringBuilder();
+                builder.DataSource = @"context.db";
+                Debug.WriteLine(builder.ConnectionString);
+                optionsBuilder.UseSqlite(new SqliteConnection(builder.ConnectionString));
             }
         }
 
@@ -30,7 +33,7 @@ namespace database_test
             SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
         }
 
-        public static void Test1()
+        public static void TestCollection()
         {
             using var db = new ContextTest();
             db.Database.EnsureCreated();
