@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -105,7 +106,6 @@ namespace form_test
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             var dc = (sender as Button)?.DataContext as RecordListItem;

@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "database-test", "database-t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "form-test", "form-test\form-test.csproj", "{A6B6B665-3563-496B-BF22-7A85E9AD4A96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "thirdparttoollibtest", "thirdparttoollibtest\thirdparttoollibtest.csproj", "{26C4CB45-692F-41F3-85AC-1F550947874A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiClients", "ApiClients\ApiClients.csproj", "{F1F61EC7-C9B5-475C-B81D-EC23BEF77AFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{A6B6B665-3563-496B-BF22-7A85E9AD4A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6B6B665-3563-496B-BF22-7A85E9AD4A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6B6B665-3563-496B-BF22-7A85E9AD4A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26C4CB45-692F-41F3-85AC-1F550947874A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26C4CB45-692F-41F3-85AC-1F550947874A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26C4CB45-692F-41F3-85AC-1F550947874A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26C4CB45-692F-41F3-85AC-1F550947874A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F61EC7-C9B5-475C-B81D-EC23BEF77AFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F61EC7-C9B5-475C-B81D-EC23BEF77AFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F61EC7-C9B5-475C-B81D-EC23BEF77AFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F61EC7-C9B5-475C-B81D-EC23BEF77AFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

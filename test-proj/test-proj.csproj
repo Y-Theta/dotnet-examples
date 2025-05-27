@@ -20,10 +20,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\ApiClients\ApiClients.csproj" />
 	  <ProjectReference Include="..\database-test\database-test.csproj" />
 	  <ProjectReference Include="..\expressionabout\expressionabout.csproj" />
 	  <ProjectReference Include="..\fileformat\fileformat.csproj" />
 	  <ProjectReference Include="..\form-test\form-test.csproj" />
+	  <ProjectReference Include="..\thirdparttoollibtest\thirdparttoollibtest.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

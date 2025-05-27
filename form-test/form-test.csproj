@@ -13,4 +13,8 @@
 	  <PackageReference Include="TencentCloudSDK.Dnspod" Version="3.0.1239" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\ApiClients\ApiClients.csproj" />
+	</ItemGroup>
+
 </Project>

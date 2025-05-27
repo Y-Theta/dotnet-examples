@@ -52,7 +52,6 @@ namespace database_test
             obj1.Ojb2s.Add(new DbObj2 { Id = 22, Str1 = "dbitem2" });
             db.Obj1s.Add(obj1);
             db.SaveChanges();
-
         }
     }
 }
