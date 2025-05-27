@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 using WebApiClientCore;
 using WebApiClientCore.Implementations;
@@ -36,9 +38,9 @@ namespace ApiClients
             var guid = Guid.NewGuid();
             var s = guid.ToString();
             var str = client.ListTransactions(guid,
-                    start: new DateTime(2024, 7, 1),
+                    start: new DateTime(2023, 6, 20),
                     end: new DateTime(2024, 7, 30)).GetAwaiter().GetResult();
-
+            var trans = str.data.SelectMany(d => d.attributes.transactions.Select(t=>t.category_name));
             //var str = client.ListAccountAsync(null, 20, 0, null, AccountTypeFilter.All).GetAwaiter().GetResult();
         }
 
