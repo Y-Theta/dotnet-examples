@@ -34,6 +34,29 @@ namespace ApiClients.Fireflyiii
     }
     #endregion
 
+    #region   Summary
+    public class FireflySummaryResponse
+    {
+        public string key { get; set; }
+        public string title { get; set; }
+        public string monetary_value { get; set; }
+        public string currency_id { get; set; }
+        public string currency_code { get; set; }
+        public string currency_symbol { get; set; }
+        public int? currency_decimal_places { get; set; }
+        public bool? no_available_budgets { get; set; }
+        public string value_parsed { get; set; }
+        public string local_icon { get; set; }
+        public string sub_title { get; set; }
+
+        public double? MonetaryValue => 
+            string.IsNullOrEmpty(monetary_value) ? 
+            null : double.TryParse(monetary_value, out var num) ? 
+            num : null;
+    }
+
+    #endregion
+
     #region   Categories
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public class FireflyCategoryResponse : FireflyApiReturn<IList<FireflyApiReturnContent<Category>>> { }

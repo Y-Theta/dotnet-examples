@@ -19,6 +19,14 @@ namespace ApiClients.Fireflyiii
         [HttpGet("v1/accounts")]
         ITask<string> ListAccounts();
 
+        [HttpGet("v1/summary/basic")]
+        ITask<IReadOnlyDictionary<string, FireflySummaryResponse>> ListSummary(
+             [Header("X-Trace-Id")] Guid? traceid = null,
+             DateTime? start = null,
+             DateTime? end = null,
+             string currency_code = null,
+             CancellationToken token = default);
+
         [HttpGet("v1/transactions")]
         ITask<FireflyTransactionResponse> ListTransactions(
             [Header("X-Trace-Id")] Guid? traceid = null, 
