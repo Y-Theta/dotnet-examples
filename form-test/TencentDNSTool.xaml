@@ -44,9 +44,11 @@
             </Grid.ColumnDefinitions>
             <TextBox Name="DNSID"
                      Grid.Column="1"
+                     Text="DNSID"
                      Style="{StaticResource NoBorderBox}" />
             <TextBox Name="DNSKEY"
                      Grid.Column="2"
+                     Text="DNSKEY"
                      Style="{StaticResource NoBorderBox}" />
             <TextBox Name="DNSDOMAIN"
                      Grid.Column="3"
@@ -59,8 +61,16 @@
         </Grid>
         <Grid Grid.Row="1"
               Height="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
             <TextBox Style="{StaticResource NoBorderBox}"
                      TextChanged="TextBox_TextChanged" />
+            <Button Grid.Column="1"
+                    Width="48"
+                    Margin="0,0,8,0"
+                    Click="Button_Click_2">批量替换</Button>
         </Grid>
         <Grid Grid.Row="2">
             <ListView Name="Data"
@@ -69,6 +79,7 @@
                       VirtualizingPanel.ScrollUnit="Item"
                       VirtualizingPanel.VirtualizationMode="Recycling"
                       SnapsToDevicePixels="True"
+                      SelectionMode="Multiple"
                       BorderThickness="0">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
@@ -84,6 +95,15 @@
                                         </Grid>
                                     </Border>
                                     <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected"
+                                                 Value="True">
+                                            <Setter TargetName="PART_MASK"
+                                                    Property="Fill"
+                                                    Value="{StaticResource FocusMask}" />
+                                            <Setter TargetName="PART_ROOT"
+                                                    Property="BorderBrush"
+                                                    Value="{StaticResource FocusMask_Border}" />
+                                        </Trigger>
                                         <Trigger Property="IsMouseOver"
                                                  Value="True">
                                             <Setter TargetName="PART_MASK"

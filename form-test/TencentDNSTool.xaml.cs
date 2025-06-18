@@ -1,4 +1,6 @@
-﻿using System;
+﻿using form_test.Utils;
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -113,11 +115,20 @@ namespace form_test
             {
                 try
                 {
-                    var response = _client.ModifyRecordBatchSync(new ModifyRecordBatchRequest
+                    //var response = _client.ModifyRecordBatchSync(new ModifyRecordBatchRequest
+                    //{
+                    //    Change = nameof(dc.Value).ToLower(),
+                    //    ChangeTo = dc.Value,
+                    //    RecordIdList = new ulong?[] { dc.RecordId }
+                    //});
+                    var response = _client.ModifyRecordSync(new ModifyRecordRequest
                     {
-                        Change = nameof(dc.Value).ToLower(),
-                        ChangeTo = dc.Value,
-                        RecordIdList = new ulong?[] { dc.RecordId }
+                        Domain = DNSDOMAIN.Text,
+                        RecordId = dc.RecordId,
+                        RecordLineId = dc.LineId,
+                        RecordLine = dc.Line,
+                        RecordType = dc.Type,
+                        Value = dc.Value,
                     });
                 }
                 catch (Exception ex)
@@ -197,6 +208,23 @@ namespace form_test
         {
             var dc = (sender as Button)?.DataContext as RecordListItem;
 
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ContentWindow window = new ContentWindow();
+            window.SetContent(new TextInputContent());
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            if (window.ShowDialog() == true)
+            {
+                var finaldata = window.Result;
+
+            }
+            //var items = Data.SelectedItems;
+            //foreach (var item in items)
+            //{
+
+            //}
         }
     }
 
