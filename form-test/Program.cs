@@ -12,10 +12,10 @@ namespace form_test
         [STAThread]
         public static void Main(string[] args)
         {
-            //TencentDNSTool window = new TencentDNSTool();
-            //window.ShowDialog();
+            TencentDNSTool window = new TencentDNSTool();
+            window.ShowDialog();
 
-            Application.Run(new TestForm());
+            //Application.Run(new TestForm());
         }
     }
 }

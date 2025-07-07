@@ -115,21 +115,21 @@ namespace form_test
             {
                 try
                 {
-                    //var response = _client.ModifyRecordBatchSync(new ModifyRecordBatchRequest
-                    //{
-                    //    Change = nameof(dc.Value).ToLower(),
-                    //    ChangeTo = dc.Value,
-                    //    RecordIdList = new ulong?[] { dc.RecordId }
-                    //});
-                    var response = _client.ModifyRecordSync(new ModifyRecordRequest
+                    var response = _client.ModifyRecordBatchSync(new ModifyRecordBatchRequest
                     {
-                        Domain = DNSDOMAIN.Text,
-                        RecordId = dc.RecordId,
-                        RecordLineId = dc.LineId,
-                        RecordLine = dc.Line,
-                        RecordType = dc.Type,
-                        Value = dc.Value,
+                        Change = nameof(dc.Value).ToLower(),
+                        ChangeTo = dc.Value,
+                        RecordIdList = new ulong?[] { dc.RecordId }
                     });
+                    //var response = _client.ModifyRecordSync(new ModifyRecordRequest
+                    //{
+                    //    Domain = DNSDOMAIN.Text,
+                    //    RecordId = dc.RecordId,
+                    //    RecordLineId = dc.LineId,
+                    //    RecordLine = dc.Line,
+                    //    RecordType = dc.Type,
+                    //    Value = dc.Value,
+                    //});
                 }
                 catch (Exception ex)
                 {
@@ -213,7 +213,7 @@ namespace form_test
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             ContentWindow window = new ContentWindow();
-            window.SetContent(new TextInputContent());
+            window.SetContent(new TextInputContent() { Name = "ip" });
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             if (window.ShowDialog() == true)
             {
